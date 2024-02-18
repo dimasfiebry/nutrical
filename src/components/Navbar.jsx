@@ -81,7 +81,7 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
-                <div className='bg-transparent flex flex-row px-2 w-[250px] p-1 border border-green-800 rounded-lg sm:w-[300px] md:w-[250px] lg:w-[300px]'>
+                <div className='bg-transparent flex flex-row px-2 w-[200px] p-1 border border-green-800 rounded-lg sm:w-[270px] md:w-[240px] lg:w-[300px]'>
                     <UilSearchAlt className='text-green-800 ' size={20} />
                     <input
                         className='w-full ml-2 text-sm placeholder:text-sm focus-within:outline-none'
