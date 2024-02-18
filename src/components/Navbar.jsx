@@ -46,7 +46,7 @@ const Navbar = () => {
                     <img className='w-10' src="/assets/images/logo.png" alt="" />
 
                     <h1 className='text-green-800 font-extrabold tracking-wider hidden sm:flex md:hidden lg:flex'>Nutrition Calculator</h1>
-                    <h1 className='text-green-800 font-extrabold tracking-wider sm:hidden md:flex lg:hidden'>NutritiCal</h1>
+                    {/* <h1 className='text-green-800 font-extrabold tracking-wider sm:hidden md:flex lg:hidden'>NutritiCal</h1> */}
                 </div>
 
                 <div className="hidden md:flex px-4">
