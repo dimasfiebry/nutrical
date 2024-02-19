@@ -64,7 +64,7 @@ const MaterialCard = ({ bahan }) => {
                     <img className=' object-cover w-full rounded-lg' src={bahan.gambar} alt={bahan.nama} />
                 </div>
 
-                <div className=' grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 justify-center py-6 text-green-900 max-w-[210px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[450px]'>
+                <div className=' grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 justify-center py-6 text-green-900 max-w-[210px] sm:max-w-[350px] md:max-w-[490px] lg:max-w-[620px]'>
                     <input
                         className=' focus:outline-none placeholder:text-xs py-1 w-full border border-green-800 px-4 rounded-md'
                         type="number"
@@ -91,7 +91,7 @@ const MaterialCard = ({ bahan }) => {
                 </div>
 
                 {calculatedValues && (
-                    <div className='grid grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+                    <div className='grid grid-cols-2 gap-6 sm:gap-10 md:gap-10 lg:gap-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
                         {Object.entries(calculatedValues).map(([nutrient, value]) => (
                             <div key={nutrient} className='border-[1.5px] border-green-800 rounded-md max-w-[120px]'>
                                 <p className='border-b-green-800 border-b-[1.5px] w-full text-white bg-green-800'>{nutrient}</p>

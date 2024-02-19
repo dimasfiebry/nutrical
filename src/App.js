@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import MaterialPage from './pages/MaterialPage';
+import FoodMenu from './pages/FoodMenu';
 
 function App() {
   const [searchInput, setSearchInput] = useState('');
@@ -24,6 +25,7 @@ function App() {
             element={<Navbar setSearchInput={setSearchInput} handleSearchSubmit={handleSearchSubmit} />}
           />
           <Route path="/material-page/:bahanName" element={<MaterialPage />} />
+          <Route path="/food-menu" element={<FoodMenu />} />
         </Routes>
       </Router>
     </div>
