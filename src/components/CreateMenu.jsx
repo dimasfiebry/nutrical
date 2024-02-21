@@ -190,9 +190,9 @@ const CreateMenu = () => {
           </div>
         )}
 
-        <div className='py-8 px-8 flex flex-col justify-between items-center w-auto gap-4'>
+        <div className='py-8 px-8 flex flex-col  items-center w-auto gap-4'>
           <div className='flex flex-row justify-between items-center w-full'>
-            <div className='flex flex-col justify-center items-start max-w-[160px] sm:w-[240px] md:w-[340px] lg:w-[550px] '>
+            <div className='flex flex-col justify-center items-start w-[140px] sm:w-[240px] md:w-[340px] lg:w-[550px] '>
               <label className='text-sm font-medium pb-1 md:text-base text-green-800' htmlFor="">Nama Bahan</label>
               <input className='border border-green-800 w-full rounded-md focus:outline-none py-1 px-4 placeholder:text-xs bg-transparent lg:py-2' type="text" placeholder='Masukkan nama bahan' value={searchInput}
                 onChange={handleInputChange}
@@ -206,7 +206,7 @@ const CreateMenu = () => {
                 </datalist>
               )}
             </div>
-            <div className='flex flex-col justify-center items-start max-w-[100px] sm:w-[120px] lg:w-[200px]'>
+            <div className='flex flex-col justify-center items-start max-w-[85px] sm:w-[120px] lg:w-[200px]'>
               <label className='text-sm font-medium pb-1 md:text-base text-green-800' htmlFor="">Berat</label>
               <input className='border border-green-800 w-full rounded-md focus:outline-none py-1 px-4 placeholder:text-xs bg-transparent lg:py-2' type="number" placeholder='Berat (g)' value={beratInput} onChange={(e) => setBeratInput(e.target.value)} />
             </div>
@@ -218,8 +218,8 @@ const CreateMenu = () => {
             </div>
           </div>
 
-          <div className='flex flex-row justify-between w-full items-center gap-6 lg:hidden'>
-            <button className='border border-green-800 hover:scale-105 px-4 rounded-md w-[260px] py-1 duration-150 sm:hidden' onClick={tambahMenu}>Tambah</button>
+          <div className='flex flex-row w-full items-center gap-6 lg:hidden'>
+            <button className='border border-green-800 hover:scale-105 px-4 rounded-md w-[280px] py-1 duration-150 sm:hidden' onClick={tambahMenu}>Tambah</button>
             <button className='border border-green-800 bg-green-800 hover:bg-white w-[150px] sm:w-full px-4 rounded-md py-1 sm:py-2 text-white hover:text-black hover:scale-105 duration-200 lg:hidden' onClick={hitungDetailZat}>Hitung</button>
           </div>
 
