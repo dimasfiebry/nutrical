@@ -179,11 +179,11 @@ const CreateMenu = () => {
         <h1 className=' px-4 py-2 w-full bg-green-800 text-white tracking-wider font-semibold text-sm md:text-base'>Buat Menu Makan</h1>
 
         {showMenu && (
-          <div className='py-8 px-8 flex flex-col justify-center items-start w-auto gap-5' id="divTampilkan">
+          <div className='py-8 flex flex-col justify-center items-center w-auto gap-5' id="divTampilkan">
             {menuList.map((menu, index) => (
-              <div className="flex flex-row gap-4 justify-between items-center" key={index}>
-                <p className="border border-green-800 flex flex-row justify-start items-center px-4 py-2 rounded-md text-xs md:text-sm lg:text-base max-w-[160px]">{menu.nama}</p>
-                <p className="border border-green-800 flex flex-row justify-start items-center px-2 py-2 rounded-md text-xs md:text-sm lg:text-base max-w-[90px]">{menu.berat} g</p>
+              <div className="flex flex-row gap-2 items-center" key={index}>
+                <p className="border border-green-800 flex flex-row justify-start text-left items-center px-4 py-2 rounded-md text-xs md:text-sm lg:text-base w-[160px]">{menu.nama}</p>
+                <p className="border border-green-800 flex flex-row justify-center items-center px-2 py-2 rounded-md text-xs md:text-sm lg:text-base min-w-[60px]">{menu.berat} g</p>
                 <button className="border border-red-800 hover:bg-red-800 bg-white flex flex-row justify-center items-center px-2 rounded-md text-xl max-w-[40px] text-red-800 hover:text-white" onClick={() => hapusMenu(index)}> - </button>
               </div>
             ))}
@@ -338,7 +338,7 @@ const DetailZatGizi = ({ nama, berat, copyNutrientValues }) => {
             </button>
           </div>
         </div>
-        <div className='grid grid-cols-3 gap-6 sm:gap-10 md:gap-10 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 py-8'>
+        <div className='grid grid-cols-2 gap-6 sm:gap-10 md:gap-10 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 py-8'>
           {Object.entries(calculatedValues).map(([nutrient, value]) => (
             <div key={nutrient} className='border-[1.5px] border-green-800 rounded-md max-w-[120px]'>
               <p className='border-b-green-800 border-b-[1.5px] w-full text-white bg-green-800 px-2 py-1'>{nutrient}</p>
