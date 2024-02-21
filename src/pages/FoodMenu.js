@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import Navbar from '../components/Navbar';
+import CreateMenu from '../components/CreateMenu';
+
 
 function FoodMenu() {
   return (
     <div>
-      <h1>hiiiiiii</h1>
+      <Navbar />
+      <CreateMenu />
     </div>
   )
 }

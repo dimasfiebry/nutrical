@@ -7,7 +7,8 @@ module.exports = {
     extend: {
       fontFamily: {
         afacad: ['Afacad'],
-        figtree: ['Figtree'],
+        mandali: ['Mandali'],
+        poppins: ['Poppins'],
       }
     },
   },
