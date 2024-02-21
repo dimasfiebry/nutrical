@@ -13,7 +13,7 @@ const CreateMenu = () => {
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     setSearchInput(inputValue);
-    if (inputValue.length >= 1) {
+    if (inputValue.length >= 0) {
       setShowDatalist(true);
     } else {
       setShowDatalist(false);
@@ -171,6 +171,16 @@ const CreateMenu = () => {
       .then(() => alert('Data berhasil disalin ke clipboard.'))
       .catch(() => alert('Gagal menyalin data ke clipboard.'));
   };
+
+  const resetForm = () => {
+    setSearchInput('');
+    setBeratInput('');
+    setShowDatalist(false);
+    setMenuList([]);
+    setShowMenu(false);
+    setCalculatedValues(null);
+    setTotalValues(null);
+  };
   
 
   return (
@@ -181,10 +191,10 @@ const CreateMenu = () => {
         {showMenu && (
           <div className='py-8 flex flex-col justify-center items-center w-auto gap-5' id="divTampilkan">
             {menuList.map((menu, index) => (
-              <div className="flex flex-row gap-2 items-center" key={index}>
-                <p className="border border-green-800 flex flex-row justify-start text-left items-center px-4 py-2 rounded-md text-xs md:text-sm lg:text-base w-[160px]">{menu.nama}</p>
-                <p className="border border-green-800 flex flex-row justify-center items-center px-2 py-2 rounded-md text-xs md:text-sm lg:text-base min-w-[60px]">{menu.berat} g</p>
-                <button className="border border-red-800 hover:bg-red-800 bg-white flex flex-row justify-center items-center px-2 rounded-md text-xl max-w-[40px] text-red-800 hover:text-white" onClick={() => hapusMenu(index)}> - </button>
+              <div className="flex flex-row gap-2 sm:gap-8 md:gap-12 lg:gap-16 items-center" key={index}>
+                <p className="border border-green-800 flex flex-row justify-start text-left items-center px-4 py-2 rounded-md text-xs md:text-sm lg:text-base w-[160px] sm:w-[220px] md:w-[300px] lg:w-[400px]">{menu.nama}</p>
+                <p className="border border-green-800 flex flex-row justify-center items-center px-2 py-2 rounded-md text-xs md:text-sm lg:text-base min-w-[60px] sm:min-w-[120px] md:min-w-[140px] lg:min-w-[160px]">{menu.berat} g</p>
+                <button className="border border-red-800 hover:bg-red-800 bg-white flex flex-row justify-center items-center px-2 rounded-md text-xl w-[34px] text-red-800 lg:py-1 hover:text-white" onClick={() => hapusMenu(index)}> - </button>
               </div>
             ))}
           </div>
@@ -217,10 +227,16 @@ const CreateMenu = () => {
               <button className='border border-green-800 bg-green-800 hover:bg-white w-[150px] sm:w-full px-4 rounded-md py-1 sm:py-2 text-white hover:text-black hover:scale-105 duration-200 lg:mt-7 lg:w-[160px]' onClick={hitungDetailZat}>Hitung</button>
             </div>
           </div>
+          <button className='border border-red-800 bg-red-800 hover:bg-white w-full sm:w-full px-4 rounded-md py-1 sm:py-2 text-white hover:text-black duration-200 hidden lg:flex text-center justify-center items-center' onClick={resetForm}>Reset</button>
+
 
           <div className='flex flex-row w-full items-center gap-6 lg:hidden'>
             <button className='border border-green-800 hover:scale-105 px-4 rounded-md w-[280px] py-1 duration-150 sm:hidden' onClick={tambahMenu}>Tambah</button>
             <button className='border border-green-800 bg-green-800 hover:bg-white w-[150px] sm:w-full px-4 rounded-md py-1 sm:py-2 text-white hover:text-black hover:scale-105 duration-200 lg:hidden' onClick={hitungDetailZat}>Hitung</button>
+          </div>
+          <div className='flex flex-row w-full items-center gap-6 lg:hidden'>
+          <button className='border border-red-800 bg-red-800 hover:bg-white w-full sm:w-full px-4 rounded-md py-1 sm:py-2 text-white hover:text-black hover:scale-105 duration-200 lg:hidden' onClick={resetForm}>Reset</button>
+
           </div>
 
         </div>
