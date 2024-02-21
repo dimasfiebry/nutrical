@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import MaterialPage from './pages/MaterialPage';
 import FoodMenu from './pages/FoodMenu';
+import DailyMenu from './pages/DailyMenu';
 
 function App() {
   const [searchInput, setSearchInput] = useState('');
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <div className="App">
+      
       <Router>
         <Routes>
           <Route
@@ -26,8 +28,10 @@ function App() {
           />
           <Route path="/material-page/:bahanName" element={<MaterialPage />} />
           <Route path="/food-menu" element={<FoodMenu />} />
+          <Route path="/daily-menu" element={<DailyMenu />} />
         </Routes>
       </Router>
+
     </div>
   );
 }
@@ -37,6 +41,8 @@ function AppContent() {
   return (
     <div>
       <Navbar />
+
+
       {/* Jika Anda ingin menambahkan konten lain di halaman utama, Anda bisa tambahkan di sini */}
     </div>
   );

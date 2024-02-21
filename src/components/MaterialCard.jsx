@@ -60,9 +60,7 @@ const MaterialCard = ({ bahan }) => {
         <div className='max-w-[1640px] mx-auto flex justify-center items-center px-8 py-4 sm:px-10 md:px-16 lg:px-24'>
             <div className=' flex flex-col py-4 w-full justify-center items-center border-2 border-green-800 rounded-lg relative max-w-[400px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[800px]'>
                 <h1 className=' text-green-800 font-bold text-lg sm:text-xl md:text-2xl py-4'>{bahan.nama}</h1>
-                <div className='max-w-[200px] sm:max-w-[300px] md:max-w-[400px] lg:max-w-[500px] rounded-lg flex'>
-                    <img className=' object-cover w-full rounded-lg' src={bahan.gambar} alt={bahan.nama} />
-                </div>
+                
 
                 <div className=' grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 justify-center py-6 text-green-900 max-w-[210px] sm:max-w-[350px] md:max-w-[490px] lg:max-w-[620px]'>
                     <input

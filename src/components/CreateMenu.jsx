@@ -8,6 +8,7 @@ const CreateMenu = () => {
   const [menuList, setMenuList] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
   const [calculatedValues, setCalculatedValues] = useState(null);
+  const [totalValues, setTotalValues] = useState(null);
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
@@ -24,18 +25,25 @@ const CreateMenu = () => {
 
     // Memastikan beratInput adalah angka yang valid dan lebih besar dari 0
     if (searchInput.trim() !== '' && !isNaN(berat) && berat > 0) {
-      const menu = {
-        nama: searchInput,
-        berat: berat
-      };
-      setMenuList([...menuList, menu]);
-      setShowMenu(true);
-      setSearchInput('');
-      setBeratInput('');
+      // Cek apakah bahan ada dalam database
+      const bahanData = bahan.find(item => item.nama.toLowerCase() === searchInput.toLowerCase());
+      if (bahanData) {
+        const menu = {
+          nama: searchInput,
+          berat: berat
+        };
+        setMenuList([...menuList, menu]);
+        setShowMenu(true);
+        setSearchInput('');
+        setBeratInput('');
+      } else {
+        alert("Bahan tidak ada dalam database.");
+      }
     } else {
       alert("Masukkan bahan dan berat yang valid.");
     }
   };
+
 
   const hapusMenu = (index) => {
     const newMenuList = [...menuList];
@@ -48,6 +56,7 @@ const CreateMenu = () => {
 
   const hitungDetailZat = () => {
     const calculatedValues = {};
+    const totalValues = {};
 
     menuList.forEach(menu => {
       const bahanData = bahan.find(item => item.nama.toLowerCase() === menu.nama.toLowerCase());
@@ -58,13 +67,111 @@ const CreateMenu = () => {
               calculatedValues[key] = 0;
             }
             calculatedValues[key] += (menu.berat / 100) * bahanData[key];
+            // Hitung total
+            if (!totalValues[key]) {
+              totalValues[key] = 0;
+            }
+            totalValues[key] += (menu.berat / 100) * bahanData[key];
           }
         }
       }
     });
 
     setCalculatedValues(calculatedValues);
+    setTotalValues(totalValues);
   };
+
+  const copyAllToClipboard = () => {
+    if (!menuList.length) {
+      alert('Tambahkan bahan terlebih dahulu sebelum menyalin.');
+      return;
+    }
+  
+    // Prepare data for the table
+    const tableData = [];
+  
+    // Get all nutrient names
+    const nutrientNames = Object.keys(bahan[0]).filter(key => !['id', 'nama', 'gambar'].includes(key));
+  
+    // Header row: nutrient names
+    tableData.push(["Nama Bahan", ...nutrientNames]);
+  
+    // Data rows: bahan names and their nutrient values
+    menuList.forEach(menu => {
+      const bahanData = bahan.find(item => item.nama.toLowerCase() === menu.nama.toLowerCase());
+      if (bahanData) {
+        const rowData = [menu.nama];
+        nutrientNames.forEach(nutrient => {
+          const value = ((menu.berat / 100) * bahanData[nutrient]).toFixed(2);
+          rowData.push(value);
+        });
+        tableData.push(rowData);
+      }
+    });
+  
+    // Total row: total nutrient values of all bahan
+    const totalRow = ["Total"];
+    nutrientNames.forEach(nutrient => {
+      const totalValue = totalValues[nutrient].toFixed(2);
+      totalRow.push(totalValue);
+    });
+    tableData.push(totalRow);
+  
+    // Convert tableData to text format
+    const textData = tableData.map(row => row.join('\t')).join('\n');
+  
+    // Copy text to clipboard
+    navigator.clipboard.writeText(textData)
+      .then(() => alert('Data berhasil disalin ke clipboard.'))
+      .catch(() => alert('Gagal menyalin data ke clipboard.'));
+  };
+  
+
+  const copyMacroToClipboard = () => {
+    if (!totalValues) {
+      alert('Hitung nilai terlebih dahulu sebelum menyalin.');
+      return;
+    }
+  
+    // Prepare data for the table
+    const tableData = [];
+  
+    // Nutrient names for macro
+    const macroNutrients = ['energi', 'karbohidrat', 'protein', 'lemak'];
+    
+    // Header row: nutrient names
+    tableData.push(["Nama Bahan", ...macroNutrients]);
+  
+    // Data rows: bahan names and their nutrient values
+    menuList.forEach(menu => {
+      const bahanData = bahan.find(item => item.nama.toLowerCase() === menu.nama.toLowerCase());
+      if (bahanData) {
+        const rowData = [menu.nama];
+        macroNutrients.forEach(nutrient => {
+          const value = ((menu.berat / 100) * bahanData[nutrient]).toFixed(2);
+          rowData.push(value);
+        });
+        tableData.push(rowData);
+      }
+    });
+  
+    // Total row: total nutrient values of all bahan
+    const totalRow = ["Total"];
+    macroNutrients.forEach(nutrient => {
+      const totalValue = totalValues[nutrient].toFixed(2);
+      totalRow.push(totalValue);
+    });
+    tableData.push(totalRow);
+  
+    // Convert tableData to text format
+    const textData = tableData.map(row => row.join('\t')).join('\n');
+  
+    // Copy text to clipboard
+    navigator.clipboard.writeText(textData)
+      .then(() => alert('Data berhasil disalin ke clipboard.'))
+      .catch(() => alert('Gagal menyalin data ke clipboard.'));
+  };
+  
 
   return (
     <div className='max-w-[1640px] mx-auto flex flex-col justify-center items-center px-8 py-4 sm:px-10 md:px-16 lg:px-24'>
@@ -122,20 +229,53 @@ const CreateMenu = () => {
       <div className="w-full" id="tampilDetail">
         <h2 className="text-xl font-semibold text-green-800 my-4">Detail Zat Gizi</h2>
         {calculatedValues && (
-          <div>
+          <div className="flex flex-col gap-8 sm:gap-12">
             {menuList.map((menu, index) => (
-              <DetailZatGizi key={index} nama={menu.nama} berat={menu.berat} />
+              <DetailZatGizi
+                key={index}
+                nama={menu.nama}
+                berat={menu.berat}
+                copyAllToClipboard={copyAllToClipboard}
+                copyMacroToClipboard={copyMacroToClipboard} // Pass the function as a prop
+              />
             ))}
           </div>
         )}
+        {totalValues && (
+          <div className='w-full flex flex-col gap-4 mt-12'>
+
+            <div className=' flex flex-col justify-center items-center w-full border-2 border-green-800 rounded-md'>
+              <div className="w-full flex flex-row bg-green-800">
+                <h1 className=' px-4 py-3 md:py-4 w-full  text-white tracking-wider font-semibold text-sm md:text-base md:pl-52'>Total</h1>
+                <div className="py-2 px-2 flex flex-row bg-green-800 gap-4 sm:pr-4 md:pr-8 lg:pr-16 md:py-3">
+                  <button className="px-2 text-xs md:text-sm border border-white text-white hover:bg-white hover:text-green-800 bg-green-800 rounded-md group" onClick={copyAllToClipboard}>
+                    <p className="absolute rounded px-2 py-1 border border-green-800 -translate-y-12 md:-translate-y-[56px] -translate-x-2 hidden group-hover:flex">Salin semua nilai zat</p>
+                    <p>All</p>
+                  </button><button className="px-2 text-xs md:text-sm border border-white text-white hover:bg-white hover:text-green-800 bg-green-800 rounded-md group" onClick={copyMacroToClipboard}>
+                    <p className="absolute rounded px-2 py-1 border border-green-800 -translate-y-12 md:-translate-y-[56px] -translate-x-8 hidden group-hover:flex">Copy macro</p><p>Macro</p></button>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-6 sm:gap-10 md:gap-10 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 py-8">
+                {Object.entries(totalValues).map(([nutrient, value]) => (
+                  <div key={nutrient} className='border-[1.5px] border-green-800 rounded-md max-w-[120px]'>
+                    <p className='border-b-green-800 border-b-[1.5px] w-full text-white bg-green-800 px-2 py-1'>{nutrient}</p>
+                    <p className='py-1 px-2'>{value.toFixed(2)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        )}
       </div>
     </div>
+
   )
 }
 
 export default CreateMenu;
 
-const DetailZatGizi = ({ nama, berat }) => {
+const DetailZatGizi = ({ nama, berat, copyNutrientValues }) => {
   const bahanData = bahan.find(item => item.nama.toLowerCase() === nama.toLowerCase());
   const calculatedValues = {};
 
@@ -147,23 +287,67 @@ const DetailZatGizi = ({ nama, berat }) => {
     }
   }
 
+  const copyValuesToClipboard = (selectedNutrients) => {
+    if (!calculatedValues) {
+      alert('Hitung nilai terlebih dahulu sebelum menyalin.');
+      return;
+    }
+
+    // Filter selected nutrients
+    const filteredValues = {};
+    selectedNutrients.forEach(nutrient => {
+      filteredValues[nutrient] = calculatedValues[nutrient].toFixed(2);
+    });
+
+    // Extract nutrient titles and values
+    const tableData = Object.entries(filteredValues);
+    const [titles, values] = [[], []];
+
+    tableData.forEach(([nutrient, value]) => {
+      titles.push(nutrient);
+      values.push(value);
+    });
+
+    // Create text data with nutrient titles and values in horizontal format
+    const textData = titles.join('\t') + '\n' + values.join('\t');
+
+    // Copy text to clipboard
+    navigator.clipboard.writeText(textData)
+      .then(() => alert('Data berhasil disalin ke clipboard.'))
+      .catch(() => alert('Gagal menyalin data ke clipboard.'));
+  };
+
+  const copyAllValuesToClipboard = () => {
+    const allNutrients = Object.keys(calculatedValues);
+    copyValuesToClipboard(allNutrients);
+  };
+
   return (
-    <div className='w-full '>
-
-      <div className=' flex flex-col justify-center items-center w-full border-2 border-green-800 rounded-md '>
-        <h1 className=' px-4 py-2 w-full bg-green-800 text-white tracking-wider font-semibold text-sm md:text-base'>{nama}</h1>
-
-        <div className='grid grid-cols-3 gap-6 sm:gap-10 md:gap-10 lg:gap-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 py-4'>
+    <div className='w-full flex flex-col gap-4'>
+      <div className=' flex flex-col justify-center items-center w-full border-2 border-green-800 rounded-md'>
+        <div className="w-full flex flex-row bg-green-800">
+          <h1 className='px-4 py-3 md:py-4 w-full text-white tracking-wider font-semibold text-sm md:text-base md:pl-52'>{nama}</h1>
+          <div className="py-2 px-2 flex flex-row bg-green-800 gap-4 sm:pr-4 md:pr-8 lg:pr-16 md:py-3">
+            <button className="px-2 text-xs md:text-sm border border-white text-white hover:bg-white hover:text-green-800 bg-green-800 rounded-md group" onClick={copyAllValuesToClipboard}>
+              <p className="absolute rounded px-2 py-1 border border-green-800 -translate-y-12 md:-translate-y-[56px] -translate-x-2 hidden group-hover:flex">Copy semua zat</p>
+              <p>All</p>
+            </button>
+            <button className="px-2 text-xs md:text-sm border border-white text-white hover:bg-white hover:text-green-800 bg-green-800 rounded-md group" onClick={() => copyValuesToClipboard(["energi", "protein", "karbohidrat", "lemak"])}>
+              <p className="absolute rounded px-2 py-1 border border-green-800 -translate-y-12 md:-translate-y-[56px] -translate-x-8 hidden group-hover:flex">Copy macro</p>
+              <p>Macro</p>
+            </button>
+          </div>
+        </div>
+        <div className='grid grid-cols-3 gap-6 sm:gap-10 md:gap-10 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 py-8'>
           {Object.entries(calculatedValues).map(([nutrient, value]) => (
             <div key={nutrient} className='border-[1.5px] border-green-800 rounded-md max-w-[120px]'>
               <p className='border-b-green-800 border-b-[1.5px] w-full text-white bg-green-800 px-2 py-1'>{nutrient}</p>
-              <p className='py-1 px-2'>{value.toFixed(2)}</p>
+              <p className='py-1 px-2'>{value.toFixed(2)}</p> {/* Fixed to 2 decimal places */}
             </div>
           ))}
         </div>
       </div>
     </div>
-
-
   );
 };
+

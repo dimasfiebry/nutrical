@@ -70,7 +70,7 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/material-page">
+                            <Link to="/Daily-Menu">
                                 <button className="text-green-800 text-sm lg:text-base hover:text-yellow-600 font-semibold">
                                     <p>Menu Harian</p>
                                 </button>
@@ -111,8 +111,8 @@ const Navbar = () => {
                 <div
                     className={
                         nav
-                            ? "fixed top-0 w-[70%] sm:w-[36%] md:w-[32%] lg:w-[28%]   right-0 h-screen bg-white z-10 transition-all ease-in-out duration-700"
-                            : "fixed top-0 w-[70%] sm:w-[36%] md:w-[32%] lg:w-[28%]   left-[100%] h-screen bg-white z-10 transition-all ease-in-out duration-700"
+                            ? "fixed top-0 w-full sm:w-[36%] md:w-[32%] lg:w-[28%]   right-0 h-screen bg-white z-10 transition-all ease-in-out duration-700"
+                            : "fixed top-0 w-full sm:w-[36%] md:w-[32%] lg:w-[28%]   left-[100%] h-screen bg-white z-10 transition-all ease-in-out duration-700"
                     }
                 >
                     <UilBars
@@ -122,7 +122,30 @@ const Navbar = () => {
                     />
 
                     <nav>
-                        <ul className="flex flex-col gap-8 mt-16">hahahah</ul>
+                        <ul className="flex flex-col gap-8 mt-16">
+                            <li>
+                                <Link to="/">
+                                    <button className="text-green-800 text-sm lg:text-base hover:text-yellow-600 font-semibold">
+                                        <p>Home</p>
+                                    </button>
+                                </Link>
+                            </li>
+
+                            <li>
+                                <Link to="/Food-Menu">
+                                    <button className="text-green-800 text-sm lg:text-base hover:text-yellow-600 font-semibold">
+                                        <p>Menu Makan</p>
+                                    </button>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/Daily-Menu">
+                                    <button className="text-green-800 text-sm lg:text-base hover:text-yellow-600 font-semibold">
+                                        <p>Menu Harian</p>
+                                    </button>
+                                </Link>
+                            </li>
+                        </ul>
                     </nav>
                 </div>
             </div>
