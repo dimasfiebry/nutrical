@@ -255,7 +255,7 @@ const CreateMenu = () => {
                     <p className="absolute rounded px-2 py-1 border border-green-800 -translate-y-12 md:-translate-y-[56px] -translate-x-8 hidden group-hover:flex">Copy macro</p><p>Macro</p></button>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-6 sm:gap-10 md:gap-10 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 py-8">
+              <div className="grid grid-cols-2 gap-6 sm:gap-10 md:gap-10 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 py-8">
                 {Object.entries(totalValues).map(([nutrient, value]) => (
                   <div key={nutrient} className='border-[1.5px] border-green-800 rounded-md max-w-[120px]'>
                     <p className='border-b-green-800 border-b-[1.5px] w-full text-white bg-green-800 px-2 py-1'>{nutrient}</p>
