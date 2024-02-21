@@ -181,10 +181,10 @@ const CreateMenu = () => {
         {showMenu && (
           <div className='py-8 px-8 flex flex-col justify-center items-start w-auto gap-5' id="divTampilkan">
             {menuList.map((menu, index) => (
-              <div className="flex flex-row gap-4" key={index}>
-                <p className="border border-green-800 flex flex-row justify-start items-center px-4 py-2 rounded-md text-xs md:text-sm lg:text-base w-[300px]">{menu.nama}</p>
-                <p className="border border-green-800 flex flex-row justify-start items-center px-4 py-2 rounded-md text-xs md:text-sm lg:text-base w-[60px]">{menu.berat}g</p>
-                <button className="border border-red-800 hover:bg-red-800 bg-white flex flex-row justify-center items-center px-4 rounded-md text-xl w-[60px] text-red-800 hover:text-white" onClick={() => hapusMenu(index)}> - </button>
+              <div className="flex flex-row gap-4 justify-between items-center" key={index}>
+                <p className="border border-green-800 flex flex-row justify-start items-center px-4 py-2 rounded-md text-xs md:text-sm lg:text-base max-w-[160px]">{menu.nama}</p>
+                <p className="border border-green-800 flex flex-row justify-start items-center px-2 py-2 rounded-md text-xs md:text-sm lg:text-base max-w-[90px]">{menu.berat} g</p>
+                <button className="border border-red-800 hover:bg-red-800 bg-white flex flex-row justify-center items-center px-2 rounded-md text-xl max-w-[40px] text-red-800 hover:text-white" onClick={() => hapusMenu(index)}> - </button>
               </div>
             ))}
           </div>
@@ -192,7 +192,7 @@ const CreateMenu = () => {
 
         <div className='py-8 px-8 flex flex-col justify-between items-center w-auto gap-4'>
           <div className='flex flex-row justify-between items-center w-full'>
-            <div className='flex flex-col justify-center items-start w-[260px] sm:w-[240px] md:w-[340px] lg:w-[550px] '>
+            <div className='flex flex-col justify-center items-start max-w-[160px] sm:w-[240px] md:w-[340px] lg:w-[550px] '>
               <label className='text-sm font-medium pb-1 md:text-base text-green-800' htmlFor="">Nama Bahan</label>
               <input className='border border-green-800 w-full rounded-md focus:outline-none py-1 px-4 placeholder:text-xs bg-transparent lg:py-2' type="text" placeholder='Masukkan nama bahan' value={searchInput}
                 onChange={handleInputChange}
@@ -206,8 +206,8 @@ const CreateMenu = () => {
                 </datalist>
               )}
             </div>
-            <div className='flex flex-col justify-center items-start w-[150px] sm:w-[120px] lg:w-[200px]'>
-              <label className='text-sm font-medium pb-1 md:text-base text-green-800' htmlFor="">Berat Bahan</label>
+            <div className='flex flex-col justify-center items-start max-w-[100px] sm:w-[120px] lg:w-[200px]'>
+              <label className='text-sm font-medium pb-1 md:text-base text-green-800' htmlFor="">Berat</label>
               <input className='border border-green-800 w-full rounded-md focus:outline-none py-1 px-4 placeholder:text-xs bg-transparent lg:py-2' type="number" placeholder='Berat (g)' value={beratInput} onChange={(e) => setBeratInput(e.target.value)} />
             </div>
             <div className='justify-center items-center hidden sm:flex'>
